@@ -85,6 +85,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
+            templateParameters:{title:'project-start'}
         }),
         new CopyWebpackPlugin({
             patterns: [{
