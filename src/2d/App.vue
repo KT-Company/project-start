@@ -37,7 +37,7 @@ export default {
   components: {Left, Right, HomeLeft, HomeRight},
   methods:{
     pageListener(){
-      this.$bus.on('toPage', (index) => {
+      this.$bus.$on('toPage', (index) => {
         this.leftComponent = componentList[index][0]
         this.rightComponent = componentList[index][1]
       })
