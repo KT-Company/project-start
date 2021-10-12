@@ -9,7 +9,7 @@ const path = require('path')
 
 const mode = process.env.NODE_ENV
 
-
+console.log(mode)
 module.exports = {
     mode,
     output: {
@@ -22,32 +22,35 @@ module.exports = {
             '2d': '@/2d',
             '3d': '@/3d'
         },
-        extensions: ['.js', '.vue','.ts']
+        extensions: ['.js', '.vue', '.ts']
     },
     // Loader
     module: {
         rules: [
-            // Images 
+            // Js
+            {
+                test: /\.(js|mjs)/,
+                use: ['babel-loader']
+            },
+            // Vue
+            {
+                test: /\.(vue)$/,
+                use: ['vue-loader']
+            },
+            // Images
             {
                 test: /\.(png|jpg|jpeg|svg|gif)$/,
                 use: [{
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10 * 1024,
-                            esModule: false,
-                            name: 'images/[name].[hash:8].[ext]'
-                        }
-                    },
-                    /*{
-                    loader: 'file-loader',
+                    loader: 'url-loader',
                     options: {
-                        name: '[name].[contenthash].[ext]',
-                        outputPath: 'images',
-                        esModule: false
-                    }
-                }*/
-                ]
-                // use:['url-loader']
+                        limit: 10 * 1024,
+                        esModule: false,
+                        name: '[name].[hash:8].[ext]',
+                        outputPath: 'images'
+                    },
+
+                }, ],
+                type: 'javascript/auto'
             },
             // Fonts
             {
@@ -59,16 +62,6 @@ module.exports = {
                     }
                 }]
             },
-            // Js
-            {
-                test: /\.(js|mjs)/,
-                use: ['babel-loader']
-            },
-            // Vue
-            {
-                test: /\.(vue)$/,
-                use: ['vue-loader']
-            },
             // css
             {
                 test: /\.(css)$/,
@@ -76,8 +69,8 @@ module.exports = {
             },
             // Ts
             {
-                test:/\.ts$/,
-                use:['ts-loader']
+                test: /\.ts$/,
+                use: ['ts-loader']
             }
         ]
     },
@@ -85,7 +78,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
-            templateParameters:{title:'project-start'}
+            templateParameters: {
+                title: 'project-start'
+            }
         }),
         new CopyWebpackPlugin({
             patterns: [{
@@ -98,6 +93,8 @@ module.exports = {
             }]
         }),
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({filename:mode==='development'?'css/[name].css':'css/[name].min.css'})
+        new MiniCssExtractPlugin({
+            filename: mode === 'development' ? 'css/[name].css' : 'css/[name].min.css'
+        })
     ],
 }
