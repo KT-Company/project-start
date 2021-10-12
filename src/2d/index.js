@@ -6,6 +6,7 @@ import * as echarts from 'echarts'
 
 
 Vue.prototype.$echarts = echarts
+Vue.prototype.$bus = new Vue
 
 new Vue({
     render(h) {
