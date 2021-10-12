@@ -60,7 +60,8 @@ module.exports = {
                     options: {
                         outputPath: 'fonts'
                     }
-                }]
+                }],
+                type: 'javascript/auto'
             },
             // css
             {
