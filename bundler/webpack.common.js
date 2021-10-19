@@ -30,7 +30,8 @@ module.exports = {
             // Js
             {
                 test: /\.(js|mjs)/,
-                use: ['babel-loader']
+                use: ['babel-loader'],
+                exclude:/node_modules/
             },
             // Vue
             {
