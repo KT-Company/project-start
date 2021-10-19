@@ -58,7 +58,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        limit:Infinity ,
+                        limit:-Infinity ,
                         esModule: false,
                         outputPath: 'fonts',
                         name: '[name].[hash:8].[ext]',
