@@ -15,40 +15,30 @@ module.exports = merge(common, {
     entry: path.resolve(__dirname, '../src/main.js'),
     plugins: [
         new CleanWebpackPlugin({}),
-        new webpack.optimize.SplitChunksPlugin({
-
-        })
+        new webpack.optimize.SplitChunksPlugin(),
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 6
+        }),
+        new webpack.optimize.MinChunkSizePlugin({
+            minChunkSize: 1000 * 200
+        }),
     ],
     optimization: {
         minimize: true,
         minimizer: [new CssMinimizerPlugin(),
             new TerserPlugin({
                 test: /\.js(\?.*)?$/i,
+                extractComments: false,
                 terserOptions: {
-                    comments: false
+                    format: {
+                        comments: false,
+                    },
                 }
             }),
         ],
         splitChunks: {
+            maxSize: 1000 * 2000,
             chunks: 'all',
-            minSize: 20000,
-            minRemainingSize: 0,
-            minChunks: 1,
-            maxAsyncRequests: 30,
-            maxInitialRequests: 30,
-            enforceSizeThreshold: 50000,
-            cacheGroups: {
-                defaultVendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    priority: -10,
-                    reuseExistingChunk: true,
-                },
-                default: {
-                    minChunks: 2,
-                    priority: -20,
-                    reuseExistingChunk: true,
-                },
-            },
         },
     }
 })
