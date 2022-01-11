@@ -1,6 +1,6 @@
 <template>
   <div class="home-right">
-    <h1> Home Right </h1>
+    <!-- <h1> Home Right </h1> -->
   </div>
 </template>
 
