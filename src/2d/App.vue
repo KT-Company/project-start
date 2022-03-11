@@ -51,4 +51,10 @@ export default {
 #app {
   color: red;
 }
+
+#app {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
 </style>

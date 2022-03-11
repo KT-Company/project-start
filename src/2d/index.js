@@ -1,4 +1,5 @@
 import '../common'
+import './common.css'
 import App from './App'
 
 import Vue from 'vue'

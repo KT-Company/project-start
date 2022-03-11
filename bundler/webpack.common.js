@@ -31,7 +31,8 @@ module.exports = {
             // Js
             {
                 test: /\.(js|mjs)/,
-                use: ['babel-loader']
+                use: ['babel-loader'],
+                exclude:/node_modules/
             },
             // Vue
             {
@@ -57,9 +58,12 @@ module.exports = {
             {
                 test: /\.(ttf|eot|woff|woff2)$/,
                 use: [{
-                    loader: 'file-loader',
+                    loader: 'url-loader',
                     options: {
-                        outputPath: 'fonts'
+                        limit:-Infinity ,
+                        esModule: false,
+                        outputPath: 'fonts',
+                        name: '[name].[hash:8].[ext]',
                     }
                 }],
                 type: 'javascript/auto'
@@ -67,7 +71,7 @@ module.exports = {
             // css
             {
                 test: /\.(css)$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader','postcss-loader']
             },
             // Ts
             {
