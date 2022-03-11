@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {
     VueLoaderPlugin
 } = require('vue-loader')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 const path = require('path')
 
@@ -96,6 +97,13 @@ module.exports = {
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: mode === 'development' ? 'css/[name].css' : 'css/[name].min.css'
+        }),
+        new CompressionWebpackPlugin({
+          filename:'[path].gz[query]',
+          algorithm:'gzip',
+          test:new RegExp('\\.(js|css)$'),
+          threshold:10240,
+          minRatio:0.8
         })
     ],
 }
