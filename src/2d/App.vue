@@ -1,60 +1,28 @@
 <template>
-  <div id="app">
-    <left>
-      <component :is="leftComponent"></component>
-    </left>
-
-    <right>
-      <component :is="rightComponent"></component>
-    </right>
-  </div>
+  <section v-if="SHOW2D">
+    <div id="canvas-insert"></div>
+    <left></left>
+    <right></right>
+  </section>
+  <!-- 此处canvas会插入到指定id的div处。 -->
+  <teleport :to="SHOW2D ? '#canvas-insert' : '#app'">
+    <scene />
+  </teleport>
 </template>
 
-<script>
-import Left from "./component/content/Left.vue";
-import Right from "./component/content/Right.vue";
-
-// Home
-import HomeLeft from "./views/home/HomeLeft";
-import HomeRight from "./views/home/HomeRight";
-
-const componentList = [
-  ["HomeLeft", "HomeRight"],
-];
-
-export default {
-  name: "App",
-  data() {
-    return {
-      leftComponent: "HomeLeft",
-      rightComponent: "HomeRight",
-    };
-  },
-  mounted() {
-    // 使用页面监听器
-    this.pageListener()
-  },
-  components: {Left, Right, HomeLeft, HomeRight},
-  methods:{
-    pageListener(){
-      this.$bus.$on('toPage', (index) => {
-        this.leftComponent = componentList[index][0]
-        this.rightComponent = componentList[index][1]
-      })
-    }
-  }
-};
+<script setup lang="ts">
+import { inject } from "vue";
+import scene from "@/3d/views/scene1.vue";
+const SHOW2D = inject("SHOW2D"); // index入口配置是否显示二维界面；然后以此确定canvas元素的位置
 </script>
 
-
-<style scoped>
-#app {
-  color: red;
-}
-
-#app {
+<style lang="less" scoped>
+#canvas-insert {
   position: absolute;
-  width: 100%;
-  z-index: 1;
+  left: 200px;
+  right: 200px;
+  top: 100px;
+  height: 600px;
+  background-color: grey;
 }
 </style>
